@@ -35,11 +35,12 @@
             android:text="Welcome: "
             android:textColor="@color/white"
             android:textSize="30dp"/>
+
         <TextView
             android:id="@+id/usrnameTool"
-            android:text="UsrName"
-            android:layout_width="wrap_content"
+            android:layout_width="216dp"
             android:layout_height="wrap_content"
+            android:text="UsrName"
             android:textColor="@color/white"
             android:textSize="30dp" />
     </LinearLayout>
