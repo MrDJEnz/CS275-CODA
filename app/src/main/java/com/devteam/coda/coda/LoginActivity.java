@@ -26,7 +26,6 @@ import java.net.URLEncoder;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static EditText email;
     private static EditText username;
     private EditText password;
     private CardView bLogin;
@@ -44,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        email = (EditText) findViewById(R.id.editEmail);
         username = (EditText)findViewById(R.id.editUsername);
         password = (EditText) findViewById(R.id.editPassword);
         register = (TextView) findViewById(R.id.register);
@@ -61,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void validateLogin(View view) {
-        String sUsername = username.getText().toString();
+        String sUsername = username.getText().toString().toLowerCase();
         String sPassword = password.getText().toString();
         String type = "login";
 
@@ -80,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String type = params[0];
-            String login_url = "http://snguon.w3.uvm.edu/cs275/login.php";
+            String login_url = "http://snguon.w3.uvm.edu/cs295d/login.php";
             if (type.equals("login")) {
                 try {
                     String username = params[1];
@@ -92,8 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                     httpURLConnection.setDoInput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String post_data = URLEncoder.encode("user_name", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
-                            + URLEncoder.encode("user_pass", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
+                    String post_data = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
+                            + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
                     bufferedWriter.write(post_data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -132,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             if (result.contains("Login Successful")) {
                 Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(homeIntent);
-            } else if (result.contains("Login Failure")){
+            } else if (result.contains("Invalid Username or Password")){
                 Toast.makeText(LoginActivity.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
             }
         }
